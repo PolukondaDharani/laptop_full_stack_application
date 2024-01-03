@@ -1,0 +1,202 @@
+<p>laptopdetails works!</p>
+<style>
+    table, th, td {
+      border: 1px solid black;
+    }
+  </style>
+<div class="container">
+    <!-- Use the safe navigation operator for targetDate as well -->
+    <form #laptopForm="ngForm">
+      <fieldset class="form-group">
+        <label>Name</label>
+        <input type="text" [(ngModel)]="newlaptop.name" class="form-control" name="name">
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Price</label>
+        <input type="number" [(ngModel)]="newlaptop.price" class="form-control" name="price">
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Brand</label>
+        <input type="text" [(ngModel)]="newlaptop.brand" class="form-control" name="brand">
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Storage</label>
+        <input type="number" [(ngModel)]="newlaptop.storage" class="form-control" name="storage">
+      </fieldset>
+      <fieldset class="form-group">
+        <label>RAM</label>
+        <input type="number" [(ngModel)]="newlaptop.ram" class="form-control" name="RAM">
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Processor</label>
+        <input type="text" [(ngModel)]="newlaptop.processor" class="form-control" name="processor">
+      </fieldset>
+      <button (click)="addLaptop()">Add Laptop</button>
+    </form>
+    
+  </div>
+
+  <div>
+    <h1> LaptopList</h1>
+    <form #laptopForm="ngForm">
+      <div class="container">
+        <fieldset class="form-group">
+          <label>Search By Name</label>
+          <input type="text" [(ngModel)]="newlaptop.name" class="form-control" name="name" (keyup.enter)="searchByName(newlaptop.name)">
+        </fieldset>
+    
+        <fieldset class="form-group">
+          <label>Search By Price</label>
+          <input type="number" [(ngModel)]="newlaptop.price" class="form-control" name="price" (keyup.enter)="searchByPrice(newlaptop.price)">
+        </fieldset>
+    
+        <fieldset class="form-group">
+          <label>Search By Brand</label>
+          <input type="text" [(ngModel)]="newlaptop.brand" class="form-control" name="brand" (keyup.enter)="searchByBrand(newlaptop.brand.toString() )">
+        </fieldset>
+    
+        <!-- <button type="submit">Search</button> -->
+      </div>
+    </form>
+    
+
+  </div>
+  <p>
+    
+  </p>
+  <div class="container">
+    <!-- Before -->
+<!-- After -->
+<table style="width:100%">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Brand</th>
+      <th>Storage</th>
+      <th>RAM</th>
+      <th>Processor</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <!-- ... existing code ... -->
+
+<!-- ... existing code ... -->
+
+<!-- ... existing code ... -->
+
+<!-- ... existing code ... -->
+
+<tbody>
+  <tr *ngFor="let lap of laptops">
+    <td>{{ lap.id }}</td>
+    <td>
+      <span *ngIf="!editedLaptops[lap.id]">{{ lap.name }}</span>
+      <input *ngIf="editedLaptops[lap.id]" [(ngModel)]="editedLaptops[lap.id].name" (keyup.enter)="saveChanges(lap.id)" />
+    </td>
+    <td>
+      <span *ngIf="!editedLaptops[lap.id]">{{ lap.price }}</span>
+      <input *ngIf="editedLaptops[lap.id]" [(ngModel)]="editedLaptops[lap.id].price" (keyup.enter)="saveChanges(lap.id)" />
+    </td>
+    <td>
+      <span *ngIf="!editedLaptops[lap.id]">{{ lap.brand }}</span>
+      <input *ngIf="editedLaptops[lap.id]" [(ngModel)]="editedLaptops[lap.id].brand" (keyup.enter)="saveChanges(lap.id)" />
+    </td>
+    <td>
+      <span *ngIf="!editedLaptops[lap.id]">{{ lap.storage }}</span>
+      <input *ngIf="editedLaptops[lap.id]" [(ngModel)]="editedLaptops[lap.id].storage" (keyup.enter)="saveChanges(lap.id)" />
+    </td>
+    <td>
+      <span *ngIf="!editedLaptops[lap.id]">{{ lap.ram }}</span>
+      <input *ngIf="editedLaptops[lap.id]" [(ngModel)]="editedLaptops[lap.id].ram" (keyup.enter)="saveChanges(lap.id)" />
+    </td>
+    <td>
+      <span *ngIf="!editedLaptops[lap.id]">{{ lap.processor }}</span>
+      <input *ngIf="editedLaptops[lap.id]" [(ngModel)]="editedLaptops[lap.id].processor" (keyup.enter)="saveChanges(lap.id)" />
+    </td>
+    <td>
+      <button (click)="deleteLaptop(lap.id)" class="btn btn-warning">Delete laptop</button>
+      <button *ngIf="!editedLaptops[lap.id]" (click)="startEditing(lap)" class="btn btn-warning">Edit laptop</button>
+      <button *ngIf="editedLaptops[lap.id]" (click)="saveChanges(lap.id)" class="btn btn-success">Save changes</button>
+      <button *ngIf="editedLaptops[lap.id]" (click)="cancelEditing(lap.id)" class="btn btn-danger">Cancel</button>
+    </td>
+  </tr>
+</tbody>
+<!-- ... existing code ... -->
+
+<!-- <tbody>
+  <tr *ngFor="let lap of laptops">
+    <td>{{ lap.id }}</td>
+    <td>
+      <span *ngIf="!editedLaptops[lap.id]">{{ lap.name }}</span>
+      <input
+        *ngIf="editedLaptops[lap.id]"
+        [(ngModel)]="editedLaptops[lap.id].name"
+        (keyup.enter)="saveChanges(lap.id, 'name')"
+      />
+    </td>
+    <td>
+      <span *ngIf="!editedLaptops[lap.id]">{{ lap.price }}</span>
+      <input
+        *ngIf="editedLaptops[lap.id]"
+        [(ngModel)]="editedLaptops[lap.id].price"
+        (keyup.enter)="saveChanges(lap.id, 'price')"
+      />
+    </td>
+    <td>
+      <span *ngIf="!editedLaptops[lap.id]">{{ lap.brand }}</span>
+      <input
+        *ngIf="editedLaptops[lap.id]"
+        [(ngModel)]="editedLaptops[lap.id].brand"
+        (keyup.enter)="saveChanges(lap.id, 'brand')"
+      />
+    </td>
+    <td>
+      <span *ngIf="!editedLaptops[lap.id]">{{ lap.storage }}</span>
+      <input
+        *ngIf="editedLaptops[lap.id]"
+        [(ngModel)]="editedLaptops[lap.id].storage"
+        (keyup.enter)="saveChanges(lap.id, 'storage')"
+      />
+    </td>
+    <td>
+      <span *ngIf="!editedLaptops[lap.id]">{{ lap.ram }}</span>
+      <input
+        *ngIf="editedLaptops[lap.id]"
+        [(ngModel)]="editedLaptops[lap.id].ram"
+        (keyup.enter)="saveChanges(lap.id, 'ram')"
+      />
+    </td>
+    <td>
+      <span *ngIf="!editedLaptops[lap.id]">{{ lap.processor }}</span>
+      <input
+        *ngIf="editedLaptops[lap.id]"
+        [(ngModel)]="editedLaptops[lap.id].processor"
+        (keyup.enter)="saveChanges(lap.id, 'processor')"
+      />
+    </td>
+    <td>
+      <button (click)="deleteLaptop(lap.id)" class="btn btn-warning">Delete laptop</button>
+      <button *ngIf="!editedLaptops[lap.id]" (click)="startEditing(lap)" class="btn btn-warning">Edit laptop</button>
+      <button *ngIf="editedLaptops[lap.id]" (click)="cancelEditing(lap.id)" class="btn btn-danger">Cancel</button>
+    </td>
+  </tr>
+</tbody> -->
+
+<!-- ... existing code ... -->
+
+
+<!-- ... existing code ... -->
+
+<!-- ... existing code ... -->
+
+
+<!-- ... existing code ... -->
+
+<!-- ... existing code ... -->
+
+</table>
+
+
+    </div>
