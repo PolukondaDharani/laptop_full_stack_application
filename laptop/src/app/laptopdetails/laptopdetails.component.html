@@ -4,37 +4,36 @@
       border: 1px solid black;
     }
   </style>
+  
 <div class="container">
-    <!-- Use the safe navigation operator for targetDate as well -->
-    <form #laptopForm="ngForm">
-      <fieldset class="form-group">
-        <label>Name</label>
-        <input type="text" [(ngModel)]="newlaptop.name" class="form-control" name="name">
-      </fieldset>
-      <fieldset class="form-group">
-        <label>Price</label>
-        <input type="number" [(ngModel)]="newlaptop.price" class="form-control" name="price">
-      </fieldset>
-      <fieldset class="form-group">
-        <label>Brand</label>
-        <input type="text" [(ngModel)]="newlaptop.brand" class="form-control" name="brand">
-      </fieldset>
-      <fieldset class="form-group">
-        <label>Storage</label>
-        <input type="number" [(ngModel)]="newlaptop.storage" class="form-control" name="storage">
-      </fieldset>
-      <fieldset class="form-group">
-        <label>RAM</label>
-        <input type="number" [(ngModel)]="newlaptop.ram" class="form-control" name="RAM">
-      </fieldset>
-      <fieldset class="form-group">
-        <label>Processor</label>
-        <input type="text" [(ngModel)]="newlaptop.processor" class="form-control" name="processor">
-      </fieldset>
-      <button (click)="addLaptop()">Add Laptop</button>
-    </form>
-    
-  </div>
+  <form #laptopForm="ngForm">
+    <fieldset class="form-group">
+      <label>Name</label>
+      <input type="text" [(ngModel)]="newlaptop.name" class="form-control" name="name" required>
+    </fieldset>
+    <fieldset class="form-group">
+      <label>Price</label>
+      <input type="number" [(ngModel)]="newlaptop.price" class="form-control" name="price" required min="0" max="9999">
+    </fieldset>
+    <fieldset class="form-group">
+      <label>Brand</label>
+      <input type="text" [(ngModel)]="newlaptop.brand" class="form-control" name="brand" required>
+    </fieldset>
+    <fieldset class="form-group">
+      <label>Storage</label>
+      <input type="number" [(ngModel)]="newlaptop.storage" class="form-control" name="storage" required>
+    </fieldset>
+    <fieldset class="form-group">
+      <label>RAM</label>
+      <input type="number" [(ngModel)]="newlaptop.ram" class="form-control" name="RAM" required>
+    </fieldset>
+    <fieldset class="form-group">
+      <label>Processor</label>
+      <input type="text" [(ngModel)]="newlaptop.processor" class="form-control" name="processor" required>
+    </fieldset>
+    <button (click)="addLaptop()">Add Laptop</button>
+  </form>
+</div>
 
   <div>
     <h1> LaptopList</h1>

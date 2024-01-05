@@ -6,11 +6,17 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/laptops")
 @CrossOrigin(origins = "http://localhost:4200")
+@Validated  
 public class DatabaseController {
 
     @Autowired
@@ -26,9 +32,18 @@ public class DatabaseController {
         Optional<Lap> optionalLaptop = laptopRepository.findById(id);
         return optionalLaptop.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
+    @Transactional
     @PostMapping("/add")
-    public ResponseEntity<String> addLaptop(@RequestBody Lap lap) {
+    public ResponseEntity<?> addLaptop(@RequestBody  @Valid Lap lap,BindingResult result) {
+//        if (result.hasErrors()) {
+//            // Handle validation errors
+//        	return ResponseEntity.badRequest().body(result.getAllErrors());        }
+    	if (result.hasErrors()) {
+    	    // Log or inspect validation errors
+    	    System.out.println("Validation errors: " + result.getAllErrors());
+    	    return ResponseEntity.badRequest().body(result.getAllErrors());
+    	}
+
         try {
             Lap savedLaptop = laptopRepository.save(lap);
             return ResponseEntity.ok("Laptop added successfully with ID: " + savedLaptop.getId());

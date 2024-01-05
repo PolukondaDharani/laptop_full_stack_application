@@ -7,10 +7,10 @@ export class Lapidetails{
   constructor(
     public id: number,
     public name: string,
-    public price: number,
+    public price: number | null,
     public brand: String,
-    public storage:number,
-    public ram:number,
+    public storage:number | null,
+    public ram:number| null,
     public processor:String
   ){}
 
@@ -24,7 +24,7 @@ export class Lapidetails{
 export class LaptopdetailsComponent implements OnInit {
 
   laptops:Lapidetails[]=[];
-  newlaptop: Lapidetails = new Lapidetails(0, '', 0, '', 0, 0, '');
+  newlaptop: Lapidetails = new Lapidetails(0, '', null, '', null, null, '');
   // lap:any;
   editedLaptops: { [id: number]: Lapidetails } = {};
   msg: string = '';
